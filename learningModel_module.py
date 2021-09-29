@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 import splitfolders
 import configparser
 from glob import glob
@@ -15,11 +16,24 @@ DATASET_FOLDER = THIS_FOLDER+'/dataset'
 TRAIN_FOLDER = DATASET_FOLDER+'/train'
 VALID_FOLDER = DATASET_FOLDER+'/val'
 
+def create_folder(directory):#폴더생성
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print('ERROR creating driectory: '+directory)
+
 def file_len(fname):#다크넷라벨안에 있는 건물 개수
   with open(fname) as f:
     for i, l in enumerate(f):
       pass
   return i + 1
+
+def write_obj_names(darknet_labels_path):
+    try:
+        shutil.copyfile(darknet_labels_path,DARKNET_FOLDER+'/data/obj.names')
+    except OSError:
+        print('ERROR copy _darknet.labels file to data/obj.namse')
 
 def write_obj_file(path):
     classes=file_len(path)
@@ -31,6 +45,7 @@ def write_obj_file(path):
         f.write('backup = backup/')
 
 def split_train_valid():
+    create_folder(DATASET_FOLDER)
     splitfolders.ratio(IMAGE_FOLDER,output=DATASET_FOLDER,ratio=(0.8,0.2),group_prefix=2)
     print('success split train and valid dataset: '+DATASET_FOLDER)
 
@@ -57,11 +72,6 @@ def write_valid_path():
             for jpg_path in full_path:
                 f.write(jpg_path+'\n')
 
-
-"""
-다크넷라벨안에 건물 정보 기록 어떻게 할건지
-메인서버에서 받아서 _darknet.labels에 저장 이 파일 위치는 dataset/_darknet.labels
-"""
 def write_cfg():
     num_classes=file_len(DATASET_FOLDER+'/_darknet.labels')
     max_batches = num_classes*2000

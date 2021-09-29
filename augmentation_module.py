@@ -1,3 +1,10 @@
+def create_folder(directory):#폴더생성
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print('ERROR creating driectory: '+directory)
+        
 def check_original_pixel_coordinate(pixel_txt_path):
     try:
         with open(pixel_txt_path,'r') as f:

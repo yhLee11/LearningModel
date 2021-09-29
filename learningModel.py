@@ -7,6 +7,7 @@ DATASET_FOLDER = THIS_FOLDER+'/dataset'
 TRAIN_FOLDER = DATASET_FOLDER+'/train'
 VALID_FOLDER = DATASET_FOLDER+'/val'
 
+lm.write_obj_names(DATASET_FOLDER+'/_darknet.labels')
 lm.write_obj_file(DATASET_FOLDER+'/_darknet.labels')#다크넷 파일안에 빌딩개수 읽어서 obj파일 만듬
 lm.split_train_valid()#트레인 밸리드 셋 분할
 lm.write_train_path()#트레인 경로 작성

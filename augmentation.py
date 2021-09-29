@@ -18,10 +18,13 @@ from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 # aug_count=5#어그멘테이션 갯수 설정
 ######################################################
 
-#nodejs 메인서버에서 파라메타 argv="건물이름1,건물이름2" "1000" 보내는 경우
+# nodejs 메인서버에서 파라메타 argv="건물이름1,건물이름2" "1000" 보내는 경우
 # folder_list=list(map(int,sys.argv[1].split(',')))
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 folder_list=sys.argv[1].split(',')
 aug_count=int(sys.argv[2])
+
+am.create_folder(THIS_FOLDER+'/image')
 for folder in folder_list:
     augmentation(folder,'image',aug_count)
 
@@ -103,14 +106,12 @@ seq = iaa.Sequential(
 )
 def augmentation(building_name='none',img_folder_name='image',aug_count=1):
 
-    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
     AUG_BFR_IMG_FOLDER=THIS_FOLDER+'/'+img_folder_name+'/'+building_name
     AUG_AFT_IMG_FOLDER=THIS_FOLDER+'/'+img_folder_name+'/aug_'+building_name
     am.create_folder(AUG_AFT_IMG_FOLDER)
 
     #make jpg,txt path info dictionary
     jpg_list=glob(AUG_BFR_IMG_FOLDER+'/*.jpg')
-    # img_list=glob()#jpg,jpeg,png
     file_path_list=[f.rstrip('.jpg') for f in jpg_list]
     file_name_list=[]
     file_dic={} #{filename: {jpg_path: '', xml_path: ''}}
