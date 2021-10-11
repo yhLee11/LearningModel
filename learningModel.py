@@ -14,7 +14,8 @@ lm.write_train_path()#트레인 경로 작성
 lm.write_valid_path()#밸리드 경로 작성
 lm.write_config_file()#config 모듈 같은 섹션은 덮어씌워짐 해결책 찾기
 
-#498디텍딩시작
+lm.learning_model()#498디텍딩시작
+
 """
 다크넷 data/obj.names->tflite/data/classes/에 복사
 save_model.py실행

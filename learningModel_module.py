@@ -1,6 +1,7 @@
 import os
 import sys
 import shutil
+import paramiko
 import splitfolders
 import configparser
 from glob import glob
