@@ -17,7 +17,5 @@ lm.write_config_file()#config 모듈 같은 섹션은 덮어씌워짐 해결책 
 #498디텍딩시작
 """
 다크넷 data/obj.names->tflite/data/classes/에 복사
-tflite에 core/config.py를 coco.names->obj.name로 변경
 save_model.py실행
-
 """

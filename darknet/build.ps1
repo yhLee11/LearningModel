@@ -190,8 +190,8 @@ if ($use_vcpkg) {
   }
   cmake --build . --config Release --target install
   #cmake --build . --config Release --parallel ${number_of_build_workers} --target install  #valid only for CMake 3.12+
-  Remove-Item DarknetConfig.cmake
-  Remove-Item DarknetConfigVersion.cmake
+  # Remove-Item DarknetConfig.cmake
+  # Remove-Item DarknetConfigVersion.cmake
   $dllfiles = Get-ChildItem ${dllfolder}\*.dll
   if ($dllfiles) {
     Copy-Item $dllfiles ..
@@ -212,8 +212,8 @@ else {
   }
   cmake --build . --config Release --target install
   #cmake --build . --config Release --parallel ${number_of_build_workers} --target install  #valid only for CMake 3.12+
-  Remove-Item DarknetConfig.cmake
-  Remove-Item DarknetConfigVersion.cmake
+  # Remove-Item DarknetConfig.cmake
+  # Remove-Item DarknetConfigVersion.cmake
   $dllfolder = "..\3rdparty\pthreads\bin"
   $dllfiles = Get-ChildItem ${dllfolder}\*.dll
   if ($dllfiles) {

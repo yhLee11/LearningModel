@@ -1,0 +1,10 @@
+^D:\GP_ATOM\LEARNINGMODEL\DARKNET\CMAKELISTS.TXT
+setlocal
+C:\Users\mrncd\Downloads\cmake-3.21.3-windows-x86_64\bin\cmake.exe -SD:/GP_ATOM/LearningModel/darknet -BD:/GP_ATOM/LearningModel/darknet --check-stamp-file D:/GP_ATOM/LearningModel/darknet/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
