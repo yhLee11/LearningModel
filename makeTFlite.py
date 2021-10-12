@@ -6,7 +6,7 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 DARKNET_FOLDER=THIS_FOLDER+'/darknet'
 TFLITE_FOLDER = THIS_FOLDER+('/tensorflow_yolov4_tflite')
 WEIGHTS_FOLDER = THIS_FOLDER+('/backup')#custom-yolov4-tiny-detector_best.weights
-
+#1012다크넷 폴더 수정하기
 def copy_obj_names():
     try:
         copyfile(DARKNET_FOLDER+'/obj.names',TFLITE_FOLDER+'/obj.names')
