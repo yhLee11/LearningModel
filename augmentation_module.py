@@ -1,10 +1,19 @@
+import sys
+import os
+import cv2
+import copy
+import numpy as np
+import imgaug as ia
+from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
+IMAGE_SIZE=416
+
 def create_folder(directory):#폴더생성
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
     except OSError:
         print('ERROR creating driectory: '+directory)
-        
+
 def check_original_pixel_coordinate(pixel_txt_path):
     try:
         with open(pixel_txt_path,'r') as f:
@@ -30,6 +39,14 @@ def check_original_pixel_coordinate(pixel_txt_path):
             print('[FAIL]change original pixel txt file: '+pixel_txt_path)
             with open(pixel_txt_path,'w') as f:
                 f.write(origin_bbox)
+
+def load_images_from_folder(path):
+    images = []
+    img = cv2.imread(path)
+    input_img = img[np.newaxis, :, :, :]
+    if img is not None:
+        images.append(input_img)
+    return images[0]
 
 def load_pixel_coordinate(pixel_txt_path):
     try:
@@ -100,3 +117,9 @@ def save_label_pixel_to_yolo(yolo_format,save_path):
             print(save_path,yolo_str)
     except:
         print('[FAIL]writing yolo format coordinate at '+save_path+', yolo_str: '+yolo_str)
+
+def save_aug_img(img,save_path):#이미지배열,파일이름
+    save_path+='.jpg'
+    for n in img:
+        cv2.imwrite(save_path,n)
+    print('save aug image: ',save_path)

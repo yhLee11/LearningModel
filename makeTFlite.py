@@ -14,6 +14,9 @@ def copy_obj_names():
         print('[FAIL]copy obj.names file to TFLite folder')
 
 #core/config.py -> coco.names:obj.names hardcoding함
+#save_model, convert_tflite 기본 세팅 바꾸기!!!!
+#darknet/cfg/initial_cfg 있어야됨
+#backup 폴더에 weights있음
 
 #외부에서
 def convert_weight_to_preTFLite():
