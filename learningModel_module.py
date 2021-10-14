@@ -73,7 +73,7 @@ def write_valid_path():
             for jpg_path in full_path:
                 f.write(jpg_path+'\n')
 
-def write_cfg():
+def write_config_file():
     num_classes=file_len(DATASET_FOLDER+'/_darknet.labels')
     max_batches = num_classes*2000
     steps1 = .8 * max_batches
