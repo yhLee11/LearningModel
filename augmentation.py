@@ -18,7 +18,13 @@ from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 # aug_count=5#어그멘테이션 갯수 설정
 ######################################################
 
-# nodejs 메인서버에서 파라메타 argv="건물이름1,건물이름2" "1000" 보내는 경우
+# nodejs 메인서버에서 파라메타 argv="0,New,1000::1,t,700::2,aa,800"보내는 경우
+"""
+{
+    "33":{"dasd":"asd","Asdasd":"ASdasd"},
+    "32":{"dasd":"asd","Asdasd":"ASdasd"}
+}
+"""
 # folder_list=list(map(int,sys.argv[1].split(',')))
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 # folder_list=sys.argv[1].split(',')
