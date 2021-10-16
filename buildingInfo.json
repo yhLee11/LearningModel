@@ -1,3 +1,5 @@
 {
-    "id":{"korname":"asd","engname":"ASdasd"}
+    "0":{"korname":"행정관","engname":"Administration Bldg"},
+    "1":{"korname":"경영관","engname":"Business Administration Bldg"},
+    "2":{"korname":"상허관","engname":"Sanghuh Hall"}
 }

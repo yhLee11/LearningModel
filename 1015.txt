@@ -1,0 +1,5 @@
+dataset에 이미지,라벨
+darknet/data/obj.names (from _darknet.labels)
+darknet/data/obj.data (클래스갯수,트레인,밸리드)
+데이터를 이미지 데이터 가져다두기
+!./darknet detector train data/obj.data cfg/custom-yolov4-tiny-detector.cfg yolov4-tiny.conv.29 -dont_show -map
