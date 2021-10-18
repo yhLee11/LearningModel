@@ -1,19 +1,19 @@
 {
-    "0":{
+    "test1":{
       "korname":"행정관",
       "engname":"Administration Bldg",
       "img_url":[
         "https://firebasestorage.googleapis.com/v0/b/let-s-take-a-walk-76161.appspot.com/o/053a7234-283a-4837-9b76-f38ae4896259.jpg?alt=media&token=1ef4e2cc-4ffb-4669-bc2c-dd69bcb7f48c",
         "https://firebasestorage.googleapis.com/v0/b/let-s-take-a-walk-76161.appspot.com/o/053a7234-283a-4837-9b76-f38ae4896259.jpg?alt=media&token=1ef4e2cc-4ffb-4669-bc2c-dd69bcb7f48c"
       ]},
-    "1":{
+    "test2":{
       "korname":"경영관",
       "engname":"Business Administration Bldg",
       "img_url":[
         "https://firebasestorage.googleapis.com/v0/b/let-s-take-a-walk-76161.appspot.com/o/053a7234-283a-4837-9b76-f38ae4896259.jpg?alt=media&token=1ef4e2cc-4ffb-4669-bc2c-dd69bcb7f48c",
         "https://firebasestorage.googleapis.com/v0/b/let-s-take-a-walk-76161.appspot.com/o/053a7234-283a-4837-9b76-f38ae4896259.jpg?alt=media&token=1ef4e2cc-4ffb-4669-bc2c-dd69bcb7f48c"
       ]},
-    "2":{
+    "test3":{
       "korname":"상허관",
       "engname":"Sanghuh Hall",
       "img_url":[
