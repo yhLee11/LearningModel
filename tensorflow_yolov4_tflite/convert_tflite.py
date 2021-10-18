@@ -7,9 +7,12 @@ from core.yolov4 import YOLOv4, YOLOv3, YOLOv3_tiny, decode
 import core.utils as utils
 import os
 from core.config import cfg
-
+import datetime
+SAVE_NAME_TODAY=datetime.now().isoformat()
+SAVE_DIR_PATH='../tflite_result/'+SAVE_NAME_TODAY+'.tflite'
 flags.DEFINE_string('weights', './checkpoints/yolov4-tiny-pretflite-416', 'path to weights file')
-flags.DEFINE_string('output', './checkpoints/yolov4-tiny-416.tflite', 'path to output')
+# flags.DEFINE_string('output', './checkpoints/yolov4-tiny-416.tflite', 'path to output')
+flags.DEFINE_string('output', SAVE_DIR_PATH, 'path to output')
 flags.DEFINE_integer('input_size', 416, 'path to output')
 flags.DEFINE_string('quantize_mode', 'float32', 'quantize mode (int8, float16, float32)')
 flags.DEFINE_string('dataset', "/Volumes/Elements/data/coco_dataset/coco/5k.txt", 'path to dataset')

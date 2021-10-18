@@ -19,17 +19,11 @@ from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 ######################################################
 
 # nodejs 메인서버에서 파라메타 argv="0,New,1000::1,t,700::2,aa,800"보내는 경우
-"""
-{
-    "33":{"dasd":"asd","Asdasd":"ASdasd"},
-    "32":{"dasd":"asd","Asdasd":"ASdasd"}
-}
-"""
+
 # folder_list=list(map(int,sys.argv[1].split(',')))
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 # folder_list=sys.argv[1].split(',')
 # aug_count=int(sys.argv[2])
-
 
 sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 seq = iaa.Sequential(
