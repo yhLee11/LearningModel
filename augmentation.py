@@ -150,7 +150,7 @@ def augmentation(building_name='none',img_folder_name='image',aug_count=1):
         if cnt>=aug_count:break
 
 folder_list=['0','1']
-aug_count=15
+aug_count=2
 
 am.create_folder(THIS_FOLDER+'/image')
 for folder in folder_list:
