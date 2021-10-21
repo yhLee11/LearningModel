@@ -10,9 +10,7 @@ makeTFlite.py
 /tflite_result/.tflite
 """
 import os
-# os.system('cd {}'.format(os.getcwd()))
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-
-# os.system('python augmentation.py')
-# os.system('python learning_model.py')
-# os.system('')
+os.system('python augmentation.py')
+os.system('python learning_model.py')
+os.system('python makeTFlite.py')
