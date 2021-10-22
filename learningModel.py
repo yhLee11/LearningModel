@@ -18,7 +18,6 @@ except:
     print('[ERROR]learning_model.py')
     exit(0)
 # lm.learning_model()#498디텍딩시작
-os.chdir(DARKNET_FOLDER+'/build/darknet/x64/')
 os.system('./darknet.exe detector train {} {} {} -map'.format(DARKNET_FOLDER+'/data/obj.data',DARKNET_FOLDER+'/cfg/custom-yolov4-tiny-detector.cfg',DARKNET_FOLDER+'/yolov4-tiny.conv.29'))
 """
 다크넷 data/obj.names->tflite/data/classes/에 복사
