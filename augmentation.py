@@ -31,27 +31,26 @@ seq = iaa.Sequential(
         iaa.Sometimes(0.2,[
         iaa.Rain(drop_size=(0.10,0.20),speed=(0.1,0.3)),
         iaa.MultiplyBrightness((0.3, 1.0))
-        ]),
-        iaa.Sometimes(0.3, [
+        ]),#비,명암
+        iaa.Sometimes(0.3,[
             iaa.MultiplyBrightness((0.25, 1.0))
-        ]),
+        ]),#명암
         iaa.Sometimes(0.2,[
         iaa.Snowflakes(flake_size=(0.1, 0.4), speed=(0.01, 0.05)),
         iaa.Clouds((5,15))
-        ]),
+        ]),#눈,구름
         iaa.Sometimes(0.3,[
             iaa.Fliplr(0.5), # horizontally flip 50% of all images
             iaa.Flipud(0.2) # vertically flip 20% of all images
-        ]),
-        iaa.Sometimes(0.8,[
+        ]),#접힘
+        iaa.Sometimes(0.7,[
             iaa.CropAndPad(
             percent=(-0.05, 0.1),
             pad_mode=ia.ALL,
             pad_cval=(0, 255)
-        )]),
+        )]),#크롭
         iaa.Sometimes(0.5,[
-        iaa.Affine(scale=(0.5,1.5)),
-        ]),#zoom in,out
+            iaa.Affine(scale=(0.5,1.5)),]),#zoom in,out
         iaa.Sometimes(0.2,[
         iaa.Affine(
             scale={"x": (0.7, 1.3), "y": (0.7, 1.3)},
@@ -61,7 +60,7 @@ seq = iaa.Sequential(
             order=[0, 1],
             cval=(0, 255),
             mode=ia.ALL
-        )]),
+        )]),#회전
         iaa.Sometimes(0.1,[
         iaa.SomeOf((0, 3),
             [
@@ -82,7 +81,7 @@ seq = iaa.Sequential(
                 iaa.Invert(0.05, per_channel=True),
                 iaa.Add((-10, 10), per_channel=0.5),
                 iaa.AddToHueAndSaturation((-20, 20)),
-  iaa.OneOf([
+                iaa.OneOf([
                 iaa.Multiply((0.5, 1.5), per_channel=0.5),
                 iaa.FrequencyNoiseAlpha(
                         exponent=(-4, 0),
@@ -96,8 +95,8 @@ seq = iaa.Sequential(
                 sometimes(iaa.PerspectiveTransform(scale=(0.01, 0.1)))
             ],
             random_order=True
-        )
-        ])
+        )#명암,크롭,노이즈
+        ])#
     ],
     random_order=True
 )
