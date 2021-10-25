@@ -8,7 +8,8 @@ import core.utils as utils
 import os
 from core.config import cfg
 import datetime
-SAVE_NAME_TODAY=datetime.now().isoformat()
+now = datetime.datetime.now()
+SAVE_NAME_TODAYnow.strftime('%Y%m%d%H%M%S')
 SAVE_DIR_PATH='../tflite_result/'+SAVE_NAME_TODAY+'.tflite'
 flags.DEFINE_string('weights', './checkpoints/yolov4-tiny-pretflite-416', 'path to weights file')
 # flags.DEFINE_string('output', './checkpoints/yolov4-tiny-416.tflite', 'path to output')
