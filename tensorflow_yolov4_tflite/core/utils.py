@@ -3,7 +3,7 @@ import random
 import colorsys
 import numpy as np
 import tensorflow as tf
-from core.config import cfg
+from tensorflow_yolov4_tflite.core.config import cfg
 
 def load_freeze_layer(model='yolov4', tiny=False):
     if tiny:
@@ -372,4 +372,3 @@ def unfreeze_all(model, frozen=False):
     if isinstance(model, tf.keras.Model):
         for l in model.layers:
             unfreeze_all(l, frozen)
-
