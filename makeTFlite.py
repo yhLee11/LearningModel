@@ -20,13 +20,17 @@ def copy_obj_names():
 
 #외부에서
 def convert_weight_to_preTFLite():
-    execfile('save_model.py')
+    # execfile('save_model.py')
+    os.chdir(TFLITE_FOLDER)
+    os.system('python save_model.py')
     print('EXECUTE save_model.py')
 
 def convert_preTFLite_to_TFLite():
-    execfile('convert_tflite.py')
+    # execfile('convert_tflite.py')
+    os.chdir(TFLITE_FOLDER)
+    os.system('python convert_tflite.py')
     print('EXECUTE convert_tflite.py')
 
 copy_obj_names()
 convert_weight_to_preTFLite()
-convert_preTFLite_to_TFLite()
+# convert_preTFLite_to_TFLite()
