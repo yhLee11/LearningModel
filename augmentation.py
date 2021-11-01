@@ -10,20 +10,8 @@ from glob import glob
 from PIL import Image
 import imgaug.augmenters as iaa
 from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
-######################################################
-# folder_list=[0,1,2]#라벨번호폴더 리스트
-# building_number=folder_list[0]
-# #building_number=0#라벨번호#cls_num
-# img_folder_name='image'#씨드이미지폴더이름(image/0/ -.jpg -.txt)
-# aug_count=5#어그멘테이션 갯수 설정
-######################################################
 
-# nodejs 메인서버에서 파라메타 argv="0,New,1000::1,t,700::2,aa,800"보내는 경우
-
-# folder_list=list(map(int,sys.argv[1].split(',')))
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-# folder_list=sys.argv[1].split(',')
-# aug_count=int(sys.argv[2])
 
 sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 seq = iaa.Sequential(
@@ -148,10 +136,13 @@ def augmentation(building_name='none',img_folder_name='image',aug_count=1):
             cnt+=1
         if cnt>=aug_count:break
 
-folder_list=['0','1']
-aug_count=2
 
 am.create_folder(THIS_FOLDER+'/image')
+IMAGE_FOLDER = THIS_FOLDER+'/image'
+folder_list = os.listdir(IMAGE_FOLDER)
+
 for folder in folder_list:
-    print('folder',folder)
-    augmentation(folder,'image',aug_count)
+    #새로 들어온 건물번호 존재 and aug_number 폴더 없을 때 어그멘테이션
+    if folder.isdigit() and not 'aug_'+folder in folder_list:
+        print('Start Augmentation building '+folder)
+        augmentation(folder,'image',1000)

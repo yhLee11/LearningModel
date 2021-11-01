@@ -11,7 +11,7 @@ from os.path import isdir
 obj.data 경로
 """
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-DARKNET_FOLDER=THIS_FOLDER+'/darknet'
+DARKNET_FOLDER = THIS_FOLDER+'/darknet'
 IMAGE_FOLDER = THIS_FOLDER+'/image'
 DATASET_FOLDER = THIS_FOLDER+'/dataset'
 TRAIN_FOLDER = DATASET_FOLDER+'/train'
@@ -30,6 +30,14 @@ def file_len(fname):#다크넷라벨안에 있는 건물 개수
       pass
   return i + 1
 
+def copy_eng_labels_to_darknet(eng_txt_path):
+    buildings=''
+    with open(eng_txt_path,'r') as f:
+        buildings=f.read()
+    with open(DATASET_FOLDER+'/_darknet.labels','w') as f:
+        f.write(buildings)
+        print('_darknet.labels file:\n',buildings)
+        
 def write_obj_names(darknet_labels_path):
     try:
         shutil.copyfile(darknet_labels_path,DARKNET_FOLDER+'/data/obj.names')
