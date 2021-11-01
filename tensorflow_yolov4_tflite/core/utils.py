@@ -3,7 +3,7 @@ import random
 import colorsys
 import numpy as np
 import tensorflow as tf
-from tensorflow_yolov4_tflite.core.config import cfg
+from core.config import cfg
 
 def load_freeze_layer(model='yolov4', tiny=False):
     if tiny:

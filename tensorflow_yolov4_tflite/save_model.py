@@ -1,9 +1,11 @@
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import tensorflow as tf
 from absl import app, flags, logging
 from absl.flags import FLAGS
-from tensorflow_yolov4_tflite.core.yolov4 import YOLO, decode, filter_boxes
-import tensorflow_yolov4_tflite.core.utils as utils
-from tensorflow_yolov4_tflite.core.config import cfg
+from core.yolov4 import YOLO, decode, filter_boxes
+import core.utils as utils
+from core.config import cfg
 
 flags.DEFINE_string('weights', '../darknet/backup/custom-yolov4-tiny-detector_best.weights', 'path to weights file')
 flags.DEFINE_string('output', './checkpoints/yolov4-tiny-pretflite-416', 'path to output')
