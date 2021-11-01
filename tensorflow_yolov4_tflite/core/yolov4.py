@@ -3,10 +3,10 @@
 
 import numpy as np
 import tensorflow as tf
-import core.utils as utils
-import core.common as common
-import core.backbone as backbone
-from core.config import cfg
+import tensorflow_yolov4_tflite.core.utils as utils
+import tensorflow_yolov4_tflite.core.common as common
+import tensorflow_yolov4_tflite.core.backbone as backbone
+from tensorflow_yolov4_tflite.core.config import cfg
 
 # NUM_CLASS       = len(utils.read_class_names(cfg.YOLO.CLASSES))
 # STRIDES         = np.array(cfg.YOLO.STRIDES)
@@ -360,8 +360,3 @@ def compute_loss(pred, conv, label, bboxes, STRIDES, NUM_CLASS, IOU_LOSS_THRESH,
     prob_loss = tf.reduce_mean(tf.reduce_sum(prob_loss, axis=[1,2,3,4]))
 
     return giou_loss, conf_loss, prob_loss
-
-
-
-
-

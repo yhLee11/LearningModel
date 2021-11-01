@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import tensorflow as tf
-import core.common as common
+import tensorflow_yolov4_tflite.core.common as common
 
 def darknet53(input_data):
 
@@ -163,5 +163,3 @@ def darknet53_tiny(input_data):
     input_data = common.convolutional(input_data, (3, 3, 512, 1024))
 
     return route_1, input_data
-
-

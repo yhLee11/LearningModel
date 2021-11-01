@@ -3,10 +3,10 @@ from absl import app, flags, logging
 from absl.flags import FLAGS
 import numpy as np
 import cv2
-from core.yolov4 import YOLOv4, YOLOv3, YOLOv3_tiny, decode
-import core.utils as utils
+from tensorflow_yolov4_tflite.core.yolov4 import YOLOv4, YOLOv3, YOLOv3_tiny, decode
+import tensorflow_yolov4_tflite.core.utils as utils
 import os
-from core.config import cfg
+from tensorflow_yolov4_tflite.core.config import cfg
 import datetime
 now = datetime.datetime.now()
 SAVE_NAME_TODAYnow.strftime('%Y%m%d%H%M%S')
