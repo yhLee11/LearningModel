@@ -1,3 +1,5 @@
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import tensorflow as tf
 from absl import app, flags, logging
 from absl.flags import FLAGS
@@ -5,11 +7,11 @@ import numpy as np
 import cv2
 from tensorflow_yolov4_tflite.core.yolov4 import YOLOv4, YOLOv3, YOLOv3_tiny, decode
 import tensorflow_yolov4_tflite.core.utils as utils
-import os
 from tensorflow_yolov4_tflite.core.config import cfg
 import datetime
 now = datetime.datetime.now()
 SAVE_NAME_TODAYnow.strftime('%Y%m%d%H%M%S')
+
 SAVE_DIR_PATH='../tflite_result/'+SAVE_NAME_TODAY+'.tflite'
 flags.DEFINE_string('weights', './checkpoints/yolov4-tiny-pretflite-416', 'path to weights file')
 # flags.DEFINE_string('output', './checkpoints/yolov4-tiny-416.tflite', 'path to output')

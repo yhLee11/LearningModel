@@ -9,7 +9,7 @@ WEIGHTS_FOLDER = THIS_FOLDER+('/backup')#custom-yolov4-tiny-detector_best.weight
 #1012다크넷 폴더 수정하기
 def copy_obj_names():
     try:
-        copyfile(DARKNET_FOLDER+'/obj.names',TFLITE_FOLDER+'/obj.names')
+        copyfile(DARKNET_FOLDER+'/data/obj.names',TFLITE_FOLDER+'/data/obj.names')
     except:
         print('[FAIL]copy obj.names file to TFLite folder')
 
@@ -33,4 +33,4 @@ def convert_preTFLite_to_TFLite():
 
 copy_obj_names()
 convert_weight_to_preTFLite()
-# convert_preTFLite_to_TFLite()
+convert_preTFLite_to_TFLite()
