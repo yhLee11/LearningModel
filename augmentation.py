@@ -109,8 +109,8 @@ def augmentation(building_name='none',img_folder_name='image',aug_count=1):
 
     cnt=0
     while cnt<=aug_count:
-        for file_name, path in file_dic.items():
-            if cnt>=aug_count:break#exit(0)
+        for file_name, path in file_dic.items():#index가 파일 폴더 이름
+            #if cnt>=aug_count:break#exit(0)
             #check original xml and edit it
             am.check_original_pixel_coordinate(path['txt_path'])
 
@@ -134,9 +134,9 @@ def augmentation(building_name='none',img_folder_name='image',aug_count=1):
             am.save_label_pixel_to_yolo(yolo_format,save_path)
 
             cnt+=1
-        if cnt>=aug_count:break
+        # if cnt>=aug_count:break
 
-
+###########################main###########################
 am.create_folder(THIS_FOLDER+'/image')
 IMAGE_FOLDER = THIS_FOLDER+'/image'
 folder_list = os.listdir(IMAGE_FOLDER)
@@ -145,4 +145,5 @@ for folder in folder_list:
     #새로 들어온 건물번호 존재 and aug_number 폴더 없을 때 어그멘테이션
     if folder.isdigit() and not 'aug_'+folder in folder_list:
         print('Start Augmentation building '+folder)
-        augmentation(folder,'image',1000)
+        augmentation(folder,'image',2)
+        am.convert_original_txt_pixel_to_yolo(int(folder),THIS_FOLDER+'/image/'+folder)
