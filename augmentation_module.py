@@ -2,6 +2,7 @@ import sys
 import os
 import cv2
 import copy
+import fnmatch
 import numpy as np
 import imgaug as ia
 from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
@@ -108,6 +109,17 @@ def pixel_to_yolo(cls_num,bbox_aug):
         height-=temp
 
     return [cls_num,xcenter,ycenter,width,height]
+
+def convert_original_txt_pixel_to_yolo(cls_num,folder_path):
+    original_txt=[]
+    txt_list=fnmatch.filter(os.listdir(folder_path),'*.txt')
+    for txt_file in txt_list:
+        with open(folder_path+'/'+txt_file,'r') as f:
+            original_txt=list(map(int,f.read().split(' ')))
+        convert_txt=pixel_to_yolo(cls_num,original_txt)#(cls_num,bbox_aug)
+        print(original_txt,convert_txt)
+        with open(folder_path+'/'+txt_file,'w') as f:
+            f.write(' '.join(list(map(str,convert_txt))))
 
 def save_label_pixel_to_yolo(yolo_format,save_path):
     yolo_str=' '.join(map(str,yolo_format))
