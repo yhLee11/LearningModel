@@ -12,7 +12,7 @@ obj.data 경로
 """
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 DARKNET_FOLDER = THIS_FOLDER+'/darknet'
-IMAGE_FOLDER = THIS_FOLDER+'/image'
+AUG_IMAGE_FOLDER = THIS_FOLDER+'/aug_image'
 DATASET_FOLDER = THIS_FOLDER+'/dataset'
 TRAIN_FOLDER = DATASET_FOLDER+'/train'
 VALID_FOLDER = DATASET_FOLDER+'/val'
@@ -37,7 +37,7 @@ def copy_eng_labels_to_darknet(eng_txt_path):
     with open(DATASET_FOLDER+'/_darknet.labels','w') as f:
         f.write(buildings)
         print('_darknet.labels file:\n',buildings)
-        
+
 def write_obj_names(darknet_labels_path):
     try:
         shutil.copyfile(darknet_labels_path,DARKNET_FOLDER+'/data/obj.names')
@@ -55,7 +55,7 @@ def write_obj_file(path):
 
 def split_train_valid():
     create_folder(DATASET_FOLDER)
-    splitfolders.ratio(IMAGE_FOLDER,output=DATASET_FOLDER,ratio=(0.8,0.2),group_prefix=2)
+    splitfolders.ratio(AUG_IMAGE_FOLDER,output=DATASET_FOLDER,ratio=(0.8,0.2),group_prefix=2)
     print('success split train and valid dataset: '+DATASET_FOLDER)
 
 """dataset/train,valid/0,aug_0"""
