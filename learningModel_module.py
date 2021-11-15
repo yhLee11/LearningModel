@@ -6,10 +6,7 @@ import splitfolders
 import configparser
 from glob import glob
 from os.path import isdir
-"""
-0901 dev note
-obj.data 경로
-"""
+
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 DARKNET_FOLDER = THIS_FOLDER+'/darknet'
 AUG_IMAGE_FOLDER = THIS_FOLDER+'/aug_image'
@@ -48,10 +45,10 @@ def write_obj_file(path):
     classes=file_len(path)
     with open(DARKNET_FOLDER+'/data/obj.data','w') as f:
         f.write('classes = {}\n'.format(classes))#추가된 이미지 개수
-        f.write('train = data/train.txt\n')
-        f.write('valid = data/valid.txt\n')
-        f.write('names = data/obj.names\n')
-        f.write('backup = backup/')
+        f.write('train = {}/data/train.txt\n'.format(DARKNET_FOLDER))
+        f.write('valid = {}/data/valid.txt\n'.format(DARKNET_FOLDER))
+        f.write('names = {}/data/obj.names\n'.format(DARKNET_FOLDER))
+        f.write('backup = {}/backup/'.format(DARKNET_FOLDER))
 
 def split_train_valid():
     create_folder(DATASET_FOLDER)
@@ -62,6 +59,7 @@ def split_train_valid():
 def write_train_path():
     train_list = os.listdir(TRAIN_FOLDER)
     full_path=[]
+    with open(DARKNET_FOLDER+'/data/train.txt','w') as f:f.write('')
     for folder in train_list:
         onedir = TRAIN_FOLDER+'/'+folder
         onedir_jpg_elem = glob(onedir+'/*.jpg')
@@ -73,6 +71,7 @@ def write_train_path():
 def write_valid_path():
     valid_list = os.listdir(VALID_FOLDER)
     full_path=[]
+    with open(DARKNET_FOLDER+'/data/valid.txt','w') as f:f.write('')
     for folder in valid_list:
         onedir = VALID_FOLDER+'/'+folder
         onedir_jpg_elem = glob(onedir+'/*.jpg')
