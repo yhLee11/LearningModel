@@ -15,48 +15,44 @@ from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 sometimes = lambda aug: iaa.Sometimes(0.5, aug)
-seq = iaa.Sequential(
+
+seq= iaa.Sequential(
     [
-        iaa.Sometimes(0.2,[
-        iaa.Rain(drop_size=(0.10,0.20),speed=(0.1,0.3)),
-        iaa.MultiplyBrightness((0.3, 1.0))
-        ]),#비,명암
+        iaa.Sometimes(0.95,[
+            iaa.Affine(scale=(0.5,2.5)),
+            iaa.TranslateX(px=(-150, 150)),
+            iaa.TranslateY(px=(-150, 150))]
+        ),#zoom in,out
         iaa.Sometimes(0.3,[
-            iaa.MultiplyBrightness((0.25, 1.0))
+        iaa.Rain(drop_size=(0.10,0.20),speed=(0.1,0.3)),
+        iaa.MultiplyBrightness((0.45, 0.65))
+        ]),#비,명암
+        iaa.Sometimes(0.4,[
+            iaa.MultiplyBrightness((0.45, 0.65))
         ]),#명암
         iaa.Sometimes(0.2,[
-        iaa.Snowflakes(flake_size=(0.1, 0.4), speed=(0.01, 0.05)),
-        iaa.Clouds((5,15))
+        iaa.Snowflakes(flake_size=(0.1, 0.2), speed=(0.01, 0.02))
         ]),#눈,구름
-        iaa.Sometimes(0.3,[
-            iaa.Fliplr(0.5), # horizontally flip 50% of all images
-            iaa.Flipud(0.2) # vertically flip 20% of all images
-        ]),#접힘
         iaa.Sometimes(0.7,[
             iaa.CropAndPad(
             percent=(-0.05, 0.1),
             pad_mode=ia.ALL,
             pad_cval=(0, 255)
         )]),#크롭
-        iaa.Sometimes(0.5,[
-            iaa.Affine(scale=(0.5,1.5)),]),#zoom in,out
         iaa.Sometimes(0.2,[
         iaa.Affine(
             scale={"x": (0.7, 1.3), "y": (0.7, 1.3)},
-            translate_percent={"x": (-0.2, 0.2), "y": (-0.2, 0.2)},
-            rotate=(-45, 45),
+            translate_percent={"x": (-0.2, 0.2), "y": (-0., 0.2)},
+            rotate=(-15, 415),
             shear=(-16, 16),
             order=[0, 1],
-            cval=(0, 255),
-            mode=ia.ALL
         )]),#회전
-        iaa.Sometimes(0.1,[
+        iaa.Sometimes(0.2,[
         iaa.SomeOf((0, 3),
             [
-                iaa.FastSnowyLandscape(lightness_threshold=[200, 255],lightness_multiplier=(1.2,1.5)),
                 sometimes(iaa.Superpixels(p_replace=(0, 1.0), n_segments=(20, 200))),
                 iaa.OneOf([
-                    iaa.GaussianBlur((0, 2.0)),
+                    iaa.GaussianBlur((0, 1.0)),
                     iaa.AverageBlur(k=(2, 5)),
                     iaa.MedianBlur(k=(3, 11)),
                 ]),
@@ -71,28 +67,19 @@ seq = iaa.Sequential(
                 iaa.Add((-10, 10), per_channel=0.5),
                 iaa.AddToHueAndSaturation((-20, 20)),
                 iaa.OneOf([
-                iaa.Multiply((0.5, 1.5), per_channel=0.5),
-                iaa.FrequencyNoiseAlpha(
-                        exponent=(-4, 0),
-                        first=iaa.Multiply((0.5, 1.5), per_channel=True),
-                        second=iaa.ContrastNormalization((0.5, 2.0))
-                    )
+                iaa.Multiply((0.5, 1.5), per_channel=0.5)
                 ]),
-                  iaa.Grayscale(alpha=(0.0, 1.0)),
-                sometimes(iaa.ElasticTransformation(alpha=(0.5, 3.5), sigma=0.25)),
-                sometimes(iaa.PiecewiseAffine(scale=(0.01, 0.05))),
+                iaa.Grayscale(alpha=(0.0, 1.0)),
                 sometimes(iaa.PerspectiveTransform(scale=(0.01, 0.1)))
             ],
             random_order=True
         )#명암,크롭,노이즈
-        ])#
+        ])
     ],
     random_order=True
 )
 def augmentation(building_name='none',img_folder_name='org_image',aug_count=1):
 
-    # AUG_BFR_IMG_FOLDER=THIS_FOLDER+'/'+img_folder_name+'/'+building_name
-    # AUG_AFT_IMG_FOLDER=THIS_FOLDER+'/'+img_folder_name+'/aug_'+building_name
     AUG_BFR_IMG_FOLDER=ORG_IMAGE_FOLDER+'/'+building_name
     AUG_AFT_IMG_FOLDER=AUG_IMAGE_FOLDER+'/'+building_name
     am.create_folder(AUG_AFT_IMG_FOLDER)
@@ -113,8 +100,7 @@ def augmentation(building_name='none',img_folder_name='org_image',aug_count=1):
     cnt=0
     while cnt<aug_count:
         for file_name, path in file_dic.items():#index가 파일 폴더 이름
-            #if cnt>=aug_count:break#exit(0)
-            #check original xml and edit it
+            #check original pixel and edit it
             am.check_original_pixel_coordinate(path['txt_path'])
 
             images=am.load_images_from_folder(path['jpg_path'])
@@ -137,7 +123,6 @@ def augmentation(building_name='none',img_folder_name='org_image',aug_count=1):
             am.save_label_pixel_to_yolo(yolo_format,save_path)
 
             cnt+=1
-        # if cnt>=aug_count:break
 
 ###########################main###########################
 
@@ -151,9 +136,8 @@ not_aug_folder = list(set(org_folder_list)-set(aug_folder_list))
 
 for folder in not_aug_folder:
     #새로 들어온 건물번호 존재->어그멘테이션
-    augmentation(folder,'org_image',2)
+    augmentation(folder,'org_image',5)
     original_files=os.listdir(ORG_IMAGE_FOLDER+'/'+folder)
-    print(original_files)
     for file in original_files:
         if file.endswith('.jpg'):
             shutil.copyfile(ORG_IMAGE_FOLDER+'/'+folder+'/'+file,AUG_IMAGE_FOLDER+'/'+folder+'/'+file)
