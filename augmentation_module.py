@@ -22,7 +22,7 @@ def check_original_pixel_coordinate(pixel_txt_path):
             origin_bbox=list(map(int,f.read().split()))
 
     except:
-        print('[FAIL]pixel txt file is not open'+pixel_txt_path)
+        print('[FAIL]pixel txt file is not open '+pixel_txt_path)
 
     #if pixel coordinate are out of range in [0,415], fix it
     fix_bbox=copy.deepcopy(origin_bbox)
@@ -108,7 +108,7 @@ def pixel_to_yolo(cls_num,bbox_aug):
         temp=2*abs(ycenter-(height/2))+0.0001
         height-=temp
 
-    return [cls_num,xcenter,ycenter,width,height]
+    return [cls_num,abs(xcenter),abs(ycenter),abs(width),abs(height)]
 
 def convert_original_txt_pixel_to_yolo(cls_num,folder_path):
     original_txt=[]
