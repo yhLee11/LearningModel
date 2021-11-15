@@ -6,7 +6,7 @@ DARKNET_FOLDER = THIS_FOLDER+'/darknet'
 DATASET_FOLDER = THIS_FOLDER+'/dataset'
 TRAIN_FOLDER = DATASET_FOLDER+'/train'
 VALID_FOLDER = DATASET_FOLDER+'/val'
-
+lm.create_folder(DATASET_FOLDER)
 try:
     lm.copy_eng_labels_to_darknet(THIS_FOLDER+'/label/eng.txt')#label폴더 안에 eng 건물 리스트를 카피
     lm.write_obj_names(DATASET_FOLDER+'/_darknet.labels')
