@@ -32,7 +32,7 @@ seq= iaa.Sequential(
         ]),#명암
         iaa.Sometimes(0.2,[
         iaa.Snowflakes(flake_size=(0.1, 0.2), speed=(0.01, 0.02))
-        ]),#눈,구름
+        ]),#눈
         iaa.Sometimes(0.7,[
             iaa.CropAndPad(
             percent=(-0.05, 0.1),
@@ -136,7 +136,7 @@ not_aug_folder = list(set(org_folder_list)-set(aug_folder_list))
 
 for folder in not_aug_folder:
     #새로 들어온 건물번호 존재->어그멘테이션
-    augmentation(folder,'org_image',5)
+    augmentation(folder,'org_image',50)
     original_files=os.listdir(ORG_IMAGE_FOLDER+'/'+folder)
     for file in original_files:
         if file.endswith('.jpg'):
