@@ -13,6 +13,13 @@ import imgaug.augmenters as iaa
 from imgaug.augmentables.bbs import BoundingBox, BoundingBoxesOnImage
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+ORG_IMAGE_FOLDER = THIS_FOLDER+'/org_image'#원본이미지
+AUG_IMAGE_FOLDER = THIS_FOLDER+'/aug_image'#증강이미지
+am.create_folder(ORG_IMAGE_FOLDER)
+am.create_folder(AUG_IMAGE_FOLDER)
+org_folder_list = os.listdir(ORG_IMAGE_FOLDER)
+aug_folder_list = os.listdir(AUG_IMAGE_FOLDER)
+not_aug_folder = list(set(org_folder_list)-set(aug_folder_list))
 
 sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 
@@ -32,7 +39,7 @@ seq= iaa.Sequential(
         ]),#명암
         iaa.Sometimes(0.2,[
         iaa.Snowflakes(flake_size=(0.1, 0.2), speed=(0.01, 0.02))
-        ]),#눈,구름
+        ]),#눈
         iaa.Sometimes(0.7,[
             iaa.CropAndPad(
             percent=(-0.05, 0.1),
@@ -124,22 +131,16 @@ def augmentation(building_name='none',img_folder_name='org_image',aug_count=1):
 
             cnt+=1
 
-###########################main###########################
+def main():
+    for folder in not_aug_folder:
+        #새로 들어온 건물번호 존재->어그멘테이션
+        augmentation(folder,'org_image',1000)
+        original_files=os.listdir(ORG_IMAGE_FOLDER+'/'+folder)
+        for file in original_files:
+            if file.endswith('.jpg'):
+                shutil.copyfile(ORG_IMAGE_FOLDER+'/'+folder+'/'+file,AUG_IMAGE_FOLDER+'/'+folder+'/'+file)
+            elif file.endswith('.txt'):
+                am.convert_original_txt_pixel_to_yolo(int(folder),file,ORG_IMAGE_FOLDER+'/'+folder,AUG_IMAGE_FOLDER+'/'+folder)
 
-ORG_IMAGE_FOLDER = THIS_FOLDER+'/org_image'#원본이미지
-AUG_IMAGE_FOLDER = THIS_FOLDER+'/aug_image'#증강이미지
-am.create_folder(ORG_IMAGE_FOLDER)
-am.create_folder(AUG_IMAGE_FOLDER)
-org_folder_list = os.listdir(ORG_IMAGE_FOLDER)
-aug_folder_list = os.listdir(AUG_IMAGE_FOLDER)
-not_aug_folder = list(set(org_folder_list)-set(aug_folder_list))
-
-for folder in not_aug_folder:
-    #새로 들어온 건물번호 존재->어그멘테이션
-    augmentation(folder,'org_image',5)
-    original_files=os.listdir(ORG_IMAGE_FOLDER+'/'+folder)
-    for file in original_files:
-        if file.endswith('.jpg'):
-            shutil.copyfile(ORG_IMAGE_FOLDER+'/'+folder+'/'+file,AUG_IMAGE_FOLDER+'/'+folder+'/'+file)
-        elif file.endswith('.txt'):
-            am.convert_original_txt_pixel_to_yolo(int(folder),file,ORG_IMAGE_FOLDER+'/'+folder,AUG_IMAGE_FOLDER+'/'+folder)
+if __name__ == "__main__":
+	main()
