@@ -14,6 +14,9 @@ def copy_obj_names():
     except:
         print('[FAIL]copy obj.names file to TFLite folder')
 
-###############main################
-copy_obj_names()
-save_model.app.run(save_model.main)
+def main():
+    copy_obj_names()
+    save_model.app.run(save_model.main)
+    
+if __name__ == "__main__":
+	main()
